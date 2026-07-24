@@ -1,0 +1,16 @@
+name: Build Windows EXE
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - run: pip install PySide6 pyinstaller pyyaml httpx pydantic tree-sitter tree-sitter-language-pack
+      - run: python build_exe.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AI-Code-Auditor-Windows
+          path: dist/AI-Code-Auditor/
